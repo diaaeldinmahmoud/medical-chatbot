@@ -13,7 +13,7 @@ def main():
     """
     try:
         # Clone the GitHub repository
-        repo_url = "https://github.com/your-username/medical-nlp-project.git"
+        repo_url = "https://github.com/diaaeldinmahmoud/medical-nlp-project.git"
         subprocess.run(f"git clone {repo_url}", shell=True, check=True)
         os.chdir("/content/medical-nlp-project")
 
@@ -52,6 +52,10 @@ def main():
         print("Model and tokenizer loaded successfully.")
         print(f"Model device: {model.device}")
         print(f"Tokenizer pad_token equals eos_token: {tokenizer.pad_token == tokenizer.eos_token}")
+
+        # Make model and tokenizer available globally for interactive use
+        globals()['model'] = model
+        globals()['tokenizer'] = tokenizer
 
         return model, tokenizer
 
