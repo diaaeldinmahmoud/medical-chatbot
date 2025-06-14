@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
-from typing import Dict
+from typing import Dict, List  # Added missing import
 import uvicorn
 from pyngrok import ngrok
 import nest_asyncio
@@ -20,7 +20,7 @@ class APIServer:
         self.model = model
         self.device = device
         self.setup_routes()
-        
+    
     def setup_routes(self):
         @self.app.post("/chat/{session_id}")
         def chat_with_doctor(session_id: str, request: ChatRequest):
@@ -57,11 +57,9 @@ class APIServer:
             }
 
     def run(self, port: int = 8000):
-        # ngrok configuration
         ngrok.set_auth_token(NGROK_AUTH_TOKEN)
         public_url = ngrok.connect(port)
         print(f"🔗 API متاحة على: {public_url}")
 
-        # Run the server
         nest_asyncio.apply()
         uvicorn.run(self.app, port=port)
