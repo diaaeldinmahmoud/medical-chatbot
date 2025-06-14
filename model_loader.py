@@ -1,0 +1,33 @@
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
+from config import *
+
+def create_bnb_config():
+    """Configures model quantization method using bitsandbytes"""
+    return BitsAndBytesConfig(
+        load_in_4bit=LOAD_IN_4BIT,
+        bnb_4bit_use_double_quant=BNB_4BIT_USE_DOUBLE_QUANT,
+        bnb_4bit_quant_type=BNB_4BIT_QUANT_TYPE,
+        bnb_4bit_compute_dtype=getattr(torch, BNB_4BIT_COMPUTE_DTYPE),
+    )
+
+def load_model():
+    """Loads model and model tokenizer"""
+    # Get number of GPU device and set maximum memory
+    n_gpus = torch.cuda.device_count()
+    max_memory = f'{40960}MB'
+
+    # Load model
+    bnb_config = create_bnb_config()
+    model = AutoModelForCausalLM.from_pretrained(
+        MODEL_NAME,
+        quantization_config=bnb_config,
+        device_map="auto",
+        max_memory={i: max_memory for i in range(n_gpus)},
+    )
+
+    # Load model tokenizer
+    tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, use_auth_token=True)
+    tokenizer.pad_token = tokenizer.eos_token
+
+    return model, tokenizer
