@@ -31,7 +31,7 @@ class APIServer:
             return {
                 "response": response,
                 "finished": str(session.finished),
-                "full_conversation": session.messages
+                "messages": session.messages
             }
 
         @self.app.get("/export/{session_id}")
@@ -52,7 +52,7 @@ class APIServer:
             return {
                 "session_id": session_id,
                 "finished": str(session.finished),
-                "full_conversation": session.messages,
+                "messages": session.messages,
                 "translated_conversation": translated_json
             }
 
