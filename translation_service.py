@@ -1,7 +1,7 @@
 import json
 import re
 from pydantic import BaseModel, Field
-from typing import Dict, Any
+from typing import Dict, List, Any  # Added missing imports
 
 class TranslateModel(BaseModel):
     Translated_conversation: str = Field(..., min_length=5, description="The conversation translated from Arabic into English")
@@ -57,7 +57,7 @@ class TranslationService:
         ]
 
         gen_text = tokenizer.decode(gen_tokens[0], skip_special_tokens=True)
-        match = re.search(r'\\{.*?\\}', gen_text, re.DOTALL)
+        match = re.search(r'\{.*?\}', gen_text, re.DOTALL)
         if not match:
             raise ValueError("No JSON block found in model output")
 
