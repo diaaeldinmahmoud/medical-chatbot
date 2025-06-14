@@ -39,8 +39,7 @@ class MedicalSession:
     def process_input(self, user_input: str, tokenizer, model, device: str) -> str:
         user_input_cleaned = user_input.strip().lower()
 
-        if self.finished or re.match(r"^\\s*تمام\\b", user_input_cleaned, re.IGNORECASE) or \
-           user_input_cleaned in ["لا شكرا", "خروج", "انتهاء", "exit", "quit"]:
+        if self.finished or re.match(r"^\s*تمام\b", user_input_cleaned, re.IGNORECASE) or user_input_cleaned in ["لا شكرا", "خروج", "انتهاء", "exit", "quit"]:
             self.finished = True
             return "شكرًا لك! أتمنى لك الصحة والعافية. 😊"
 
