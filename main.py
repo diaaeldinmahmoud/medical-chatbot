@@ -1,6 +1,7 @@
 from model_loader import load_model
 from api_server import APIServer
 from config import DEVICE
+import torch
 
 def main():
     # Load model and tokenizer
