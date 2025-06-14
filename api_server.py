@@ -52,7 +52,7 @@ class APIServer:
             return {
                 "session_id": session_id,
                 "finished": str(session.finished),
-                "messages": session.messages,
+                "full_conversation": session.messages,
                 "translated_conversation": translated_json
             }
 
