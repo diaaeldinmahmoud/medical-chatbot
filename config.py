@@ -9,8 +9,8 @@ MODEL_NAME = "CohereForAI/c4ai-command-r7b-arabic-02-2025"
 LOAD_IN_4BIT = True
 BNB_4BIT_USE_DOUBLE_QUANT = True
 BNB_4BIT_QUANT_TYPE = "nf4"
-BNB_4BIT_COMPUTE_DTYPE = "torch.bfloat16"
+BNB_4BIT_COMPUTE_DTYPE = "bfloat16"  # Changed from "torch.bfloat16"
 
 # Device configuration
 DEVICE = "cuda"
-TORCH_DTYPE = "torch.float16"
+TORCH_DTYPE = "float16"  # Changed from "torch.float16"
