@@ -4,11 +4,18 @@ from config import *
 
 def create_bnb_config():
     """Configures model quantization method using bitsandbytes"""
+    # Map string dtype to actual torch dtype
+    compute_dtype_map = {
+        "bfloat16": torch.bfloat16,
+        "float16": torch.float16,
+        "float32": torch.float32
+    }
+    
     return BitsAndBytesConfig(
         load_in_4bit=LOAD_IN_4BIT,
         bnb_4bit_use_double_quant=BNB_4BIT_USE_DOUBLE_QUANT,
         bnb_4bit_quant_type=BNB_4BIT_QUANT_TYPE,
-        bnb_4bit_compute_dtype=getattr(torch, BNB_4BIT_COMPUTE_DTYPE),
+        bnb_4bit_compute_dtype=compute_dtype_map.get(BNB_4BIT_COMPUTE_DTYPE, torch.bfloat16),
     )
 
 def load_model():
