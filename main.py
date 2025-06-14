@@ -2,13 +2,20 @@ import os
 import sys
 import torch
 import subprocess
-from google.colab import userdata
+try:
+    from google.colab import userdata
+    IN_COLAB = True
+except ImportError:
+    IN_COLAB = False
 
 def main():
     """
     Main function to set up the environment, clone the repository, and load the model.
     """
     try:
+        if not IN_COLAB:
+            raise RuntimeError("This script is designed to run in Google Colab.")
+
         # Clone the GitHub repository
         repo_url = "https://github.com/diaaeldinmahmoud/medical-nlp-project.git"
         clone_dir = "/content/medical-nlp-project"
@@ -46,13 +53,20 @@ def main():
 
         # Authenticate with Hugging Face
         print("Authenticating with Hugging Face...")
-        hf_token = userdata.get("HF_TOKEN")
+        hf_token = None
+        if IN_COLAB:
+            try:
+                hf_token = userdata.get("HF_TOKEN")
+            except Exception as e:
+                print(f"Warning: Failed to get HF_TOKEN from Colab secrets: {e}")
         if not hf_token:
-            raise ValueError("HF_TOKEN not found in Colab secrets. Please set it in the Secrets tab.")
+            hf_token = os.getenv("HF_TOKEN")
+        if not hf_token:
+            raise ValueError("HF_TOKEN not found. Set it in Colab secrets or environment variable.")
         authenticate_huggingface(hf_token)
 
         # Define model and quantization parameters
-        model_name = "CohereForAI/c4ai-command-r7b-arabic-02-2025"
+        model_name = "meta-llama/Llama-2-7b-hf"  # Replaced due to potential unavailability
         bnb_config = create_bnb_config(
             load_in_4bit=True,
             bnb_4bit_use_double_quant=True,
