@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
-from typing import Dict, List  # Added missing import
+from typing import Dict, List, Any
 import uvicorn
 from pyngrok import ngrok
 import nest_asyncio
@@ -55,6 +55,22 @@ class APIServer:
                 "messages": session.messages,
                 "translated_conversation": translated_json
             }
+
+        @self.app.get("/translate/{session_id}")
+        def translate_conversation(session_id: str):
+            if session_id not in self.sessions:
+                return JSONResponse(status_code=404, content={"error": "الجلسة غير موجودة."})
+
+            session = self.sessions[session_id]
+            ar_text = session.get_full_arabic_conversation()
+
+            try:
+                message = TranslationService.create_translate_template(ar_text)
+                translated_json = TranslationService.generate_translation(
+                    message, self.tokenizer, self.model, self.device)
+                return translated_json
+            except Exception as e:
+                return JSONResponse(status_code=500, content={"error": f"فشل في الترجمة: {str(e)}"})
 
     def run(self, port: int = 8000):
         ngrok.set_auth_token(NGROK_AUTH_TOKEN)
