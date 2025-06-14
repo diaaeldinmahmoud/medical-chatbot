@@ -4,7 +4,6 @@ from config import *
 
 def create_bnb_config():
     """Configures model quantization method using bitsandbytes"""
-    # Map string dtype to actual torch dtype
     compute_dtype_map = {
         "bfloat16": torch.bfloat16,
         "float16": torch.float16,
@@ -19,7 +18,11 @@ def create_bnb_config():
     )
 
 def load_model():
-    """Loads model and model tokenizer"""
+    """Loads model and model tokenizer with authentication"""
+    # Login to Hugging Face first
+    from huggingface_hub import login
+    login(token=HF_TOKEN)  # Uses the token from config.py
+
     # Get number of GPU device and set maximum memory
     n_gpus = torch.cuda.device_count()
     max_memory = f'{40960}MB'
@@ -31,10 +34,14 @@ def load_model():
         quantization_config=bnb_config,
         device_map="auto",
         max_memory={i: max_memory for i in range(n_gpus)},
+        use_auth_token=True  # Important for gated models
     )
 
-    # Load model tokenizer
-    tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, use_auth_token=True)
+    # Load tokenizer
+    tokenizer = AutoTokenizer.from_pretrained(
+        MODEL_NAME,
+        use_auth_token=True  # Important for gated models
+    )
     tokenizer.pad_token = tokenizer.eos_token
 
     return model, tokenizer
