@@ -51,7 +51,39 @@ python main.py
 
 ---
 
-## 🔌 API Usage
+🔌 Try the API (Live Demo)
+You can test the chatbot live using Swagger UI via the  link you got after running  (python main.py):
+
+
+Example: 🌐 https://a5e8-34-142-184-39.ngrok-free.app/docs
+
+This opens the interactive API documentation where you can:
+
+Start a new session
+
+Send user messages
+
+Export conversation history
+
+🧪 Example Request
+Go to the /chat endpoint
+
+Click "Try it out"
+
+Paste a JSON body like:
+
+json
+Copy
+Edit
+{
+  "session_id": "session123",
+  "user_message": "عندي وجع في المعدة"
+}
+Click "Execute"
+
+Read the chatbot's Arabic response in the bot_message field
+
+✅ Use this to simulate a real conversation with the AI agent!
 
 
 
