@@ -53,25 +53,7 @@ python main.py
 
 ## 🔌 API Usage
 
-* **Endpoint:** `/chat`
-* **Method:** `POST`
-* **Payload Example:**
 
-```json
-{
-  "session_id": "abc123",
-  "user_message": "عندي صداع ودوخة"
-}
-```
-
-* **Response:**
-
-```json
-{
-  "bot_message": "من قد إيه بتحس بالصداع؟",
-  "finished": false
-}
-```
 
 ---
 
