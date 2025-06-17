@@ -1,8 +1,7 @@
-# 🩺 Arabic Medical Chatbot
+# 🩺 Arabic Dermatology Chatbot
+An open-source, AI-powered Arabic chatbot for dermatology that simulates intelligent medical interviews with patients. It understands symptoms, asks relevant follow-up questions, and knows when to end the conversation — all in natural Arabic.
 
-An open-source AI chatbot that conducts smart, multi-turn medical interviews with Arabic-speaking patients. It uses prompt engineering and transformer models to ask relevant questions, analyze answers, and decide when the conversation has collected enough information.
-
-🎓 **This project was developed as my graduation project.**
+🎓 This project was developed as my graduation project in the field of AI and medical NLP.
 
 ## 🚀 Features
 
@@ -13,6 +12,16 @@ An open-source AI chatbot that conducts smart, multi-turn medical interviews wit
 * 🗃️ Modular codebase for easy customization and scaling
 
 ---
+## 💡 Project Overview
+Skin-related issues are among the most common reasons people seek medical advice — but Arabic speakers often lack accessible, intelligent tools. This chatbot provides a dermatology-focused medical interview experience, designed to:
+
+* Collect patient symptoms in Arabic
+
+* Ask medically relevant, targeted follow-up questions
+
+* Stop the conversation automatically when enough data is collected
+
+The goal is to replicate the logic of a dermatology consultation, powered by NLP.
 
 ## 🗂️ Project Structure
 
@@ -89,17 +98,28 @@ Read the chatbot's Arabic response in the bot_message field
 
 ---
 
-## 🧠 How It Works
+## 📊 How It Works
 
-* The chatbot interacts in Arabic using a transformer-based language model.
-* Each patient message is scored for confidence and information coverage.
-* The bot dynamically decides whether to continue asking questions or end the conversation.
+*Uses a few-shot prompt to simulate a dermatology consultation
+
+*Tracks which symptoms or clinical information have been covered
+
 
 ---
+## 🧪 Common Topics Covered
+حب الشباب (Acne) *
 
-## 🌍 Vision
+الإكزيما (Eczema)*
 
-This project is a step toward building AI tools that support Arabic-language users in healthcare settings, replacing rigid form-based systems with empathetic, intelligent dialogue.
+التينيا والفطريات (Fungal infections)*
+
+الطفح الجلدي (Rashes)*
+
+
+You can easily expand the supported conditions via the prompt template or logic.
+---
+## 👨‍⚕️ Vision
+This chatbot is a step toward making dermatological advice more accessible for Arabic speakers, especially in underserved areas. It can be used in telehealth triage, virtual clinics, or awareness apps.
 
 ---
 
